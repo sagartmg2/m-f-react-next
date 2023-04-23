@@ -1,22 +1,26 @@
+import Product from "@/components/Product"
 
-import Product from "../components/product"
-export default function Products() {
+const Products = () => {
 
-    let product_style = {
-        border: "1px solid black"
-    }
-    let color = "red"
+    let age = 18
 
-    return (
-        <>
-            <div style={{ color: color }}>products</div>
-            <h1>props</h1>
-            <hr />
-            <Product/>
-            <Product/>
-            <Product/>
-         
-        </>
+    return <>
+        <h1>Products</h1>
+        <p>loream ipusm ..... </p>
+        <hr />
+        {/* <div id={styles.target} className="" > */}
 
-    )
+
+        {/* Product("one") */}
+        {/* Product("two") */}
+
+        {/* props = arugement */}
+
+        <Product name="one" description = "descripiion - one" />
+        <Product name="two" description = "descripiion - two" />
+        <Product name="three" description = "descripiion -three" />
+
+    </>
 }
+
+export default Products

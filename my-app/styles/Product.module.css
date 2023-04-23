@@ -1,0 +1,13 @@
+.product {
+    padding: 10px;
+    border: 1px solid;
+    margin-bottom: 10px;
+}
+    
+.product p:first-child{
+    text-transform: capitalize;
+}
+
+#target{
+    background-color: orange;
+}
