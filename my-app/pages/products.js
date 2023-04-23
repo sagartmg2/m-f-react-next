@@ -19,6 +19,7 @@ const Products = () => {
         <Product name="one" description = "descripiion - one" />
         <Product name="two" description = "descripiion - two" />
         <Product name="three" description = "descripiion -three" />
+        <Product name="four" description= "four desciption" />
 
     </>
 }
