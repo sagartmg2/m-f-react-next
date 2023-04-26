@@ -19,6 +19,24 @@ export default function FetchUsers() {
             - delete - DELETE
     
     */
+    /* 
+     status code
+     2 (success)
+         200
+         201
+         203
+         204
+     3 (redirect)
+         302
+     4 (bad requst ) -> client error
+         401 (unauthenticated /  not logged in)
+         403 (unauthorized / forbidden)
+         404 (resource not found)
+     5
+         500 (server error)
+     
+ 
+    */
 
     // let users = [
     //     { id: 1, name: 'Leanne Graham', username: 'Bret', email: 'Sincere@april.biz' }
@@ -60,7 +78,7 @@ export default function FetchUsers() {
                 <tbody>
                     {
                         users.map(user => {
-                            return <tr>
+                            return <tr key={user.id}>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                             </tr>
