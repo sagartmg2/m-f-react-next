@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from "axios"
-
+import Link from "next/link"
 export default function FetchUsers() {
 
 
@@ -79,7 +79,7 @@ export default function FetchUsers() {
                     {
                         users.map(user => {
                             return <tr key={user.id}>
-                                <td>{user.name}</td>
+                                <td><Link href={`/fetch-users/${user.id}`}> {user.name} </Link></td>
                                 <td>{user.email}</td>
                             </tr>
                         })

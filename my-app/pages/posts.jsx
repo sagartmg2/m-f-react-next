@@ -8,7 +8,6 @@ function Posts() {
     const [count, setcount] = useState(0);
     const [isLoadig, setLoading] = useState(true)
 
-
     useEffect(() => {
         console.log("use-effect -- mount");
         axios.get("https://dummyjson.com/posts")

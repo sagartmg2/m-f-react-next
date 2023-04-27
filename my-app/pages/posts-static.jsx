@@ -1,15 +1,13 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 
-function Posts({posts}) {  // { posts:[] ,users:[]}
-    console.log("re-render");
-
+function Posts({ posts }) {
     return <>
         <hr />
         <ul>
             {
 
-                posts.map(post => {
+                posts?.map(post => {
                     return <li key={post.id}>{post.title}</li>
                 })
             }
@@ -19,9 +17,12 @@ function Posts({posts}) {  // { posts:[] ,users:[]}
 }
 export default Posts
 
-export async function getServerSideProps() {
 
-    console.log("fetch api server side posts ");
+export async function getStaticProps(){
+// export async function getServerSideProps(){
+
+console.log("fetch api static  posts ");
+
     let data = await axios.get("https://dummyjson.com/posts")
 
     return {
@@ -29,4 +30,4 @@ export async function getServerSideProps() {
             posts: data.data.posts
         }
     }
-}
+} 

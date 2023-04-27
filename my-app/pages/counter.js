@@ -36,9 +36,6 @@ export default function counter() {
         console.log("updated-number", number)
     }
 
-
-
-
     console.log("counter-re-render")
 
     return (
