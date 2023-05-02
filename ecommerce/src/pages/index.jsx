@@ -1,18 +1,14 @@
 import Image from 'next/image'
+import Banner from "@/assets/promotional.png"
+import Header from '@/components/Header'
 
 
-export default function Home({user}) {
+
+export default function Home({ user }) {
   return (
     <>
-     <header className='bg-primary text-white'>
-      <nav>
-        <ul>
-          <li>home</li>
-          <li>poruduct</li>
-        </ul>
-      </nav>
-
-     </header>
+      <Header />
+      <Image src={Banner} />
     </>
   )
 }

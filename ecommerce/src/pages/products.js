@@ -1,7 +1,11 @@
+import Header from '@/components/Header'
 import React from 'react'
 
-export default function products( ) {
+export default function products() {
   return (
-    <div>products</div>
+    <>
+      <Header />
+      <div>products</div>
+    </>
   )
 }
