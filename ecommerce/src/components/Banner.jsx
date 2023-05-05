@@ -23,7 +23,8 @@ export default function Banner() {
 
         </div>
       </div> */}
-            <div className=' py-48 bg-[url("../assets/promotional.png")] bg-cover bg-no-repeat  '>
+            {/* <div className=' py-48 bg-[url("../assets/promotional.png")] bg-cover bg-no-repeat  '> */}
+            <div className=' py-48 bg-banner-image bg-cover bg-no-repeat  '>
                 <div className="container">
                     <div className="w-1/2">
                         <p className='text-secondary font-bold mb-3' >Best Furniture For Your Castle....</p>

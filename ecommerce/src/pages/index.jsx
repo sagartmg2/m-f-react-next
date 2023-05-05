@@ -3,16 +3,48 @@ import Banner from '@/components/Banner'
 import Header from '@/components/Header'
 import Image from 'next/image'
 import ChairImg from "@/assets/chair.png"
-import { AiOutlineShoppingCart } from "react-icons/ai"
+import LatestProduct from '@/components/LatestProduct'
+
+import axios from "axios"
+import { useEffect, useState } from 'react'
 
 
-export default function Home({ user }) {
+/* 
+  CURD operations
+  create  -POSt
+  update  -PUT
+  read  - GET
+  delete -DELETE
+
+  HTTP request methods
+
+  STATUS CODES
+    2 200 201, 203 204  // success 
+    3 // redicrect
+    4 // react dev error // client error
+      401 - unauntenticated . not logged in 
+    5 // backedn dev error
+*/
+
+export default function Home({ user,products }) {
+  // const [products, setProducts] = useState([]);
+
+  // useEffect(() => {
+  //   axios.get("https://ecommerce-sagartmg2.vercel.app/api/products")
+  //     .then(res => {
+  //       console.log(res.data.data[0].data)
+  //       setProducts(res.data.data[0].data)
+  //     })
+  // }, [])
+
+
+
   return (
     <>
       <Header />
       <Banner />
       <div className='mt-32 container'>
-        <h2 className='text-4xl font-semibold text-header text-center mb-12'>Featured Products</h2>
+        <h2 className='text-4xl font-semibold text-header text-center mb-12'>Trending Products</h2>
         <div className='flex flex-wrap gap-7 justify-center'>
           <div className='border shadow basis-[270px]   '>
             <Image src={ChairImg} className='bg-[#F6F7FB] w-full ' height={200} width={200} />
@@ -64,49 +96,30 @@ export default function Home({ user }) {
           gridTemplateColumns: "1fr 1fr 1fr",
           gap:"1rem"
         }}> */}
+        {products.length == 0 && <p>loading...</p>}
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 ' >
-          <div className='border shadow  '>
-            <Image src={ChairImg} className='bg-[#F6F7FB]  w-full ' height={200} width={200} />
-            <div className='flex justify-between p-2'>
-              <p className='text-secondary text-xl'>Cantilever chair</p>
-              <p className='text-header'>$100</p>
-            </div>
-          </div>
-          <div className='border shadow relative hover:border-primary group  '>
-            <Image src={ChairImg} className='bg-[#F6F7FB]  w-full ' height={200} width={200} />
-
-            <div className='hidden group-hover:block  p-2 absolute top-[50%] left-3  bg-primary-tint h-8 w-8 flex justify-center items-center rounded-full'>
-              <AiOutlineShoppingCart size={2} className='h-6 w-6' />
-            </div>
-
-            <div className='flex justify-between p-2'>
-              <p className='text-secondary text-xl'>Cantilever chair</p>
-              <p className='text-header'>$100</p>
-            </div>
-          </div>
-          <div className='border shadow  '>
-            <Image src={ChairImg} className='bg-[#F6F7FB]  w-full ' height={200} width={200} />
-            <div className='flex justify-between p-2'>
-              <p className='text-secondary text-xl'>Cantilever chair</p>
-              <p className='text-header'>$100</p>
-            </div>
-          </div>
-          <div className='border shadow  '>
-            <Image src={ChairImg} className='bg-[#F6F7FB]  w-full ' height={200} width={200} />
-            <div className='flex justify-between p-2'>
-              <p className='text-secondary text-xl'>Cantilever chair</p>
-              <p className='text-header'>$100</p>
-            </div>
-          </div>
-          <div className='border shadow  '>
-            <Image src={ChairImg} className='bg-[#F6F7FB]  w-full ' height={200} width={200} />
-            <div className='flex justify-between p-2'>
-              <p className='text-secondary text-xl'>Cantilever chair</p>
-              <p className='text-header'>$100</p>
-            </div>
-          </div>
+          {
+            products.map(product => {
+              return <LatestProduct product={product} key={product._id} />
+            })
+          }
         </div>
       </div>
     </>
   )
+}
+
+export async function getServerSideProps() {
+
+  let res = await axios.get("https://ecommerce-sagartmg2.vercel.app/api/products")
+  // .then(res => {
+  //   console.log()
+  //   setProducts(res.data.data[0].data)
+  // })
+
+  return {
+    props: {
+      products: res.data.data[0].data
+    }
+  }
 }
