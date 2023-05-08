@@ -110,9 +110,9 @@ export default function Home({ user, products }) {
 }
 
 export async function getServerSideProps() {
-// export async function getStaticProps() {
+  // export async function getStaticProps() {
 
-  let res = await axios.get("https://ecommerce-sagartmg2.vercel.app/api/products")
+  let res = await axios.get("https://ecommerce-sagartmg2.vercel.app/api/products?per_page=6")
   // .then(res => {
   //   console.log()
   //   setProducts(res.data.data[0].data)
