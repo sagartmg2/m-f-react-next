@@ -26,7 +26,7 @@ import { useEffect, useState } from 'react'
     5 // backedn dev error
 */
 
-export default function Home({ user,products }) {
+export default function Home({ user, products }) {
   // const [products, setProducts] = useState([]);
 
   // useEffect(() => {
@@ -110,6 +110,7 @@ export default function Home({ user,products }) {
 }
 
 export async function getServerSideProps() {
+// export async function getStaticProps() {
 
   let res = await axios.get("https://ecommerce-sagartmg2.vercel.app/api/products")
   // .then(res => {
@@ -120,6 +121,6 @@ export async function getServerSideProps() {
   return {
     props: {
       products: res.data.data[0].data
-    }
+    },
   }
 }
