@@ -78,15 +78,16 @@ export default function products({ products, categories }) {
         <div className='grid gap-3  col-start-2 col-end-5'>
           {
             products.map(product => {
-              return <div className='border p-3 flex gap-3 shadow-md'>
-                <Image className="w-1/4" src={product.images[0]} width={1000} height={1000} />
-                <div>
-                  <p className='text-2xl uppercase'>{product.name}</p>
-                  <p>Rs.{product.price}</p>
-                  <button className='border bg-secondary text-white p-1 '>Add To Cart</button>
+              return <Link href={`/products/${product._id}`}>
+                <div className='border p-3 flex gap-3 shadow-md'>
+                  <Image className="w-1/4" src={product.images[0]} width={1000} height={1000} />
+                  <div>
+                    <p className='text-2xl uppercase'>{product.name}</p>
+                    <p>Rs.{product.price}</p>
+                    <button className='border bg-secondary text-white p-1 '>Add To Cart</button>
+                  </div>
                 </div>
-
-              </div>
+              </Link>
             })
           }
         </div>
