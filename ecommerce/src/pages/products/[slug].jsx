@@ -1,5 +1,5 @@
 import Header from '@/components/Header'
-import React from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import Link from 'next/link'
 import Slider from 'react-slick'
@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 
 export default function SingleProduct({ product }) {
 
+    const [disply_type, setDisplay] = useState("description")
 
     function SampleNextArrow(props) {
         const { className, style, onClick } = props;
@@ -86,20 +87,37 @@ export default function SingleProduct({ product }) {
             </div>
             <div className="container">
                 <div className='flex gap-3'>
-                    <p>Description</p>
-                    <p>Reviews</p>
+                    <p className={` cursor-pointer ${disply_type == "description" && "text-secondary"}  `} onClick={() => {
+                        setDisplay("description")
+                    }}>Description</p>
+                    <p className={`cursor-pointer ${disply_type == "reviews" && "text-secondary"}  `} onClick={() => {
+                        setDisplay("reviews")
+                    }} >Reviews</p>
                 </div>
-                <div>
-                    {product.description}
+                {
+                    disply_type == "description"
+                    &&
+                    <div>
+                        {product.description}
+                    </div>
+                }
+                {
+                    disply_type == "reviews"
+                    &&
+                    <div className=''>
+                        <p>
+                            John: Good
+                        </p>
+                        <p>
 
+                            Ram: Good
+                        </p>
+                        <p>
+                            Shyam: Good
+                        </p>
+                    </div>
+                }
 
-
-
-                </div>
-                <div className='bg-primary'>
-                    John: Good
-                    Doe: Bad
-                </div>
             </div>
 
         </>
@@ -108,11 +126,27 @@ export default function SingleProduct({ product }) {
 
 export async function getServerSideProps(ctx) {
 
-    let res = await axios.get(`https://ecommerce-sagartmg2.vercel.app/api/products/${ctx.query.slug}`)
+    let product = null
+    try {
+        let res = await axios.get(`https://ecommerce-sagartmg2.vercel.app/api/products/${ctx.query.slug}`)
+
+        product = res.data.data
+
+
+    } catch (err) {
+
+        return {
+            notFound: true,
+            props: {
+
+            }
+        }
+
+    }
 
     return {
         props: {
-            product: res.data.data
+            product
         }
     }
 

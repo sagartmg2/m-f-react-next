@@ -84,7 +84,11 @@ export default function products({ products, categories }) {
                   <div>
                     <p className='text-2xl uppercase'>{product.name}</p>
                     <p>Rs.{product.price}</p>
-                    <button className='border bg-secondary text-white p-1 '>Add To Cart</button>
+                    <button onClick={(e) => {
+                      e.preventDefault()
+                      console.log("add to cart");
+                    }}
+                      className='border bg-secondary text-white p-1 '>Add To Cart</button>
                   </div>
                 </div>
               </Link>
