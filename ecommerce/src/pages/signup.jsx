@@ -1,8 +1,12 @@
 import Header from '@/components/Header'
 import axios from 'axios'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 
 export default function Signup() {
+
+  const router = useRouter()
 
   let [name, setName] = useState("")
   let [email, setEmail] = useState("")
@@ -46,7 +50,7 @@ export default function Signup() {
         "email": email
       })
         .then(res => {
-          alert("user created.")
+          router.push("/login")
         })
         .catch(err => {
           console.log(err)
@@ -113,7 +117,7 @@ export default function Signup() {
         </div>
         <div class="mb-6">
           <label htmlFor="password" class="form-label">Your password</label>
-          <input type="password"  name='password' id="password" class="form-control" />
+          <input type="password" name='password' id="password" class="form-control" />
           {
             error.password
             &&
@@ -125,10 +129,12 @@ export default function Signup() {
           <select className='form-control' name='role'  >
             <option>Select</option>
             <option selected value={"buyer"}>Buyer</option>
-            <option>Seller</option>
+            <option value={"seller"}>Seller</option>
           </select>
         </div>
         <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+        <p>Already a user ? <Link href={"/login"}>login</Link></p>
+
       </form>
 
     </>

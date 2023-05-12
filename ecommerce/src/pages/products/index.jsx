@@ -7,11 +7,11 @@ import { BsFillGrid1X2Fill } from 'react-icons/bs'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
-export default function products({ products, categories }) {
+export default function products({ products, categories, user }) {
   const router = useRouter()
   return (
     <>
-      <Header />
+      <Header user={user} />
       <div className='py-24 bg-primary-tint'>
         <div className='container'>
           <p className='text-3xl text-header font-bold'>Shop Left Sidebar</p>
