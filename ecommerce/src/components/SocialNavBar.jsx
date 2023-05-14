@@ -4,11 +4,18 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { AiOutlineMail, AiOutlineSearch } from "react-icons/ai"
 import { BsFillTelephoneFill } from "react-icons/bs"
+import { useDispatch, useSelector } from 'react-redux'
+import { logout, setReduxUser } from '@/redux/slice/userSlice'
 
 
-export default function SocialNavBar({ user }) {
+export default function SocialNavBar({ user, setUser }) {
 
-    let logged_in = user
+    /* faly values  - false, null, undefined, 0, "", NaN  */
+
+    let logged_in = user  // {name:byer..role,email} : null 
+
+    let redux_user = useSelector((redux_store) => { return redux_store.user.value }) // null  {name}
+    let dispatch = useDispatch()
 
     return (
         <nav className='bg-primary text-white  p-3'>
@@ -23,14 +30,22 @@ export default function SocialNavBar({ user }) {
                 </ul>
                 <ul className='md:flex gap-3'>
                     {
-                        logged_in
+                        redux_user
                             ?
                             <>
-                                <li>
-                                    <Link href={"/"}>{user?.name} </Link>
-                                </li>
+
                                 <li>
                                     <Link href={"/cart"}>cart </Link>
+                                </li>
+                                <li>
+                                    <Link href={"/"}>{redux_user?.name} </Link>
+                                </li>
+                                <li className='cursor-pointer' onClick={() => {
+                                    // setUser(null)
+                                    // dispatch(setReduxUser(null))
+                                    dispatch(logout())
+                                }}>
+                                    logout
                                 </li>
                             </>
                             :

@@ -6,9 +6,13 @@ import axios from 'axios'
 import { BsFillGrid1X2Fill } from 'react-icons/bs'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
+import { addToCart } from '@/redux/slice/cartSlice'
 
 export default function products({ products, categories, user }) {
   const router = useRouter()
+  const dispatch = useDispatch()
+
   return (
     <>
       <Header user={user} />
@@ -86,7 +90,9 @@ export default function products({ products, categories, user }) {
                     <p>Rs.{product.price}</p>
                     <button onClick={(e) => {
                       e.preventDefault()
+                      dispatch(addToCart(product))
                       console.log("add to cart");
+
                     }}
                       className='border bg-secondary text-white p-1 '>Add To Cart</button>
                   </div>

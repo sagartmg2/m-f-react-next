@@ -5,7 +5,7 @@ import { AiOutlineMail, AiOutlineSearch } from "react-icons/ai"
 import { BsFillTelephoneFill } from "react-icons/bs"
 import SocialNavBar from './SocialNavBar'
 
-export default function Header({user}) {
+export default function Header({ user, setUser }) {
   const router = useRouter()
 
 
@@ -15,7 +15,7 @@ export default function Header({user}) {
   }
   return (
     <header >
-     <SocialNavBar user={user}/>
+      <SocialNavBar user={user} setUser={setUser} />
       <nav className='container text-center md:flex p-4'>
         <Link href={"/"} className='text-4xl font-bold text-[#0D0E43]'>Hekto</Link>
         <div className='md:flex md:flex-grow justify-between items-center md:pl-20 '>

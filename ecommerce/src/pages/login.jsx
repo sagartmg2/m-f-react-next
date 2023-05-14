@@ -1,11 +1,14 @@
 import Header from '@/components/Header'
+import { setReduxUser } from '@/redux/slice/userSlice'
 import axios from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 export default function Login({ user, setUser }) {
 
+  const dispatch = useDispatch()
   const router = useRouter();
 
   let [email, setEmail] = useState("b@b.com")
@@ -45,7 +48,9 @@ export default function Login({ user, setUser }) {
         "email": email
       })
         .then(res => {
-          setUser(res.data.user)
+          console.log("set redux user")
+          dispatch(setReduxUser(res.data.user))
+          // setUser(res.data.user)
           setisSubmitting(false)
           // router.push("/")
         })
@@ -67,7 +72,7 @@ export default function Login({ user, setUser }) {
 
   return (
     <>
-      <Header user={user} />
+      <Header user={user} setUser={setUser} />
 
       <form className='container' onSubmit={handleSubmit}  >
         {
