@@ -12,7 +12,7 @@ export const userSlice = createSlice({
             console.log(action)
             state.value = action.payload
         },
-        "logout": () => {
+        "logout": (state) => {
             state.value = null
         }
     },

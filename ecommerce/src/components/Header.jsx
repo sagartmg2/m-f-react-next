@@ -4,15 +4,19 @@ import { useEffect } from 'react'
 import { AiOutlineMail, AiOutlineSearch } from "react-icons/ai"
 import { BsFillTelephoneFill } from "react-icons/bs"
 import SocialNavBar from './SocialNavBar'
+import { useSelector } from 'react-redux'
 
 export default function Header({ user, setUser }) {
   const router = useRouter()
+  const redux_user = useSelector((redux_store) => redux_store.user.value)
 
 
   function handleSearch(e) {
     e.preventDefault()
     router.push("/products?search_term=" + e.target.search_term.value)
   }
+
+
   return (
     <header >
       <SocialNavBar user={user} setUser={setUser} />
@@ -26,6 +30,19 @@ export default function Header({ user, setUser }) {
             <li>
               <Link href={"/products"}>Products</Link>
             </li>
+            {/* <BuyerComponeet>   */}
+            {
+              redux_user?.role == "buyer"
+              &&
+              <>
+                <li>
+                  <Link href={"/cart"}>cart</Link>
+                </li>
+                <li>
+                  <Link href={"/order"}>order</Link>
+                </li>
+              </>
+            }
           </ul>
           <form className='flex mt-3' onSubmit={handleSearch}>
             <input type="text" name='search_term' className='border w-full outline-none px-2' />

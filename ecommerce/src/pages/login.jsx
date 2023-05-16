@@ -50,6 +50,7 @@ export default function Login({ user, setUser }) {
         .then(res => {
           console.log("set redux user")
           dispatch(setReduxUser(res.data.user))
+          localStorage.setItem("access_token", res.data.access_token)
           // setUser(res.data.user)
           setisSubmitting(false)
           // router.push("/")
@@ -72,8 +73,6 @@ export default function Login({ user, setUser }) {
 
   return (
     <>
-      <Header user={user} setUser={setUser} />
-
       <form className='container' onSubmit={handleSubmit}  >
         {
           error

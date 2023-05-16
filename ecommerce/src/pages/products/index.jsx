@@ -15,7 +15,6 @@ export default function products({ products, categories, user }) {
 
   return (
     <>
-      <Header user={user} />
       <div className='py-24 bg-primary-tint'>
         <div className='container'>
           <p className='text-3xl text-header font-bold'>Shop Left Sidebar</p>

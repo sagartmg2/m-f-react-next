@@ -15,6 +15,7 @@ export default function SocialNavBar({ user, setUser }) {
     let logged_in = user  // {name:byer..role,email} : null 
 
     let redux_user = useSelector((redux_store) => { return redux_store.user.value }) // null  {name}
+    let cart_items = useSelector((redux_store) => { return redux_store.cart_items.value })
     let dispatch = useDispatch()
 
     return (
@@ -34,9 +35,7 @@ export default function SocialNavBar({ user, setUser }) {
                             ?
                             <>
 
-                                <li>
-                                    <Link href={"/cart"}>cart </Link>
-                                </li>
+
                                 <li>
                                     <Link href={"/"}>{redux_user?.name} </Link>
                                 </li>
@@ -53,6 +52,9 @@ export default function SocialNavBar({ user, setUser }) {
                                 <Link href={"/login"}>login </Link>
                             </li>
                     }
+                    <li>
+                        <Link href={"/cart"}>cart <span>( {cart_items.length} ) </span> </Link>
+                    </li>
                 </ul>
             </div>
         </nav>

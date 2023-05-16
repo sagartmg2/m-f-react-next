@@ -41,7 +41,6 @@ export default function Home({ user, products }) {
 
   return (
     <>
-      <Header user={user} />
       <Banner />
       <div className='mt-32 container'>
         <h2 className='text-4xl font-semibold text-header text-center mb-12'>Trending Products</h2>
