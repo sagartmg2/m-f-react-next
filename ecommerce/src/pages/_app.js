@@ -16,16 +16,20 @@ function App({ Component, pageProps }) {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    axios.get("https://ecommerce-sagartmg2.vercel.app/api/users/get-user", {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("access_token")
-      }
-    }).then(res => {
-      dispatch(setReduxUser(res.data))
-    })
+    if (localStorage.getItem("access_token")) {
+      axios.get("https://ecommerce-sagartmg2.vercel.app/api/users/get-user", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token")
+        }
+      }).then(res => {
+        dispatch(setReduxUser(res.data))
+      })
 
-    let cart_items = JSON.parse(localStorage.getItem("cart_items"));
-    dispatch(setCartItems(cart_items))
+      let cart_items = JSON.parse(localStorage.getItem("cart_items"));
+      dispatch(setCartItems(cart_items))
+      
+    }
+
   }, [])
 
 
@@ -39,21 +43,31 @@ function App({ Component, pageProps }) {
        A componet which returns another component
 */
 
-const WithReduxProvider = (App) => {
-
-  function Wrapper(props) {
-
-    return <>
-      <Provider store={store}>
-        <App  {...props} />
-      </Provider>
-    </>
-
-  }
-  return Wrapper
-
+export default function WithRedux({ Component, pageProps }) {
+  return <>
+    <Provider store={store}>
+      <App Component={Component} pageProps={pageProps} />
+    </Provider >
+  </>
 }
 
-export default WithReduxProvider(App)
+
+
+// const WithReduxProvider = (App) => {
+
+//   function Wrapper(props) {
+
+//     return <>
+//       <Provider store={store}>
+//         <App  {...props} />
+//       </Provider>
+//     </>
+
+//   }
+//   return Wrapper
+
+// }
+
+// export default WithReduxProvider(App)
 
 

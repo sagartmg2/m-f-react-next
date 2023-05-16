@@ -53,7 +53,7 @@ export default function SocialNavBar({ user, setUser }) {
                             </li>
                     }
                     <li>
-                        <Link href={"/cart"}>cart <span>( {cart_items.length} ) </span> </Link>
+                        <Link href={"/cart"}>cart <span>( {cart_items?.length} ) </span> </Link>
                     </li>
                 </ul>
             </div>
