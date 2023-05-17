@@ -3,11 +3,9 @@ import SellerProducts from "@/components/Products"
 import axios from 'axios';
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux';
+import ProtctedPage from '@/components/ProtctedPage';
 
-export default function Products() {
-
-    let redux_user = useSelector((redux_store) => { redux_store.user.value })
-    let router = useRouter()
+function Products() {
 
     const [products, setproducts] = useState([]);
     const [metadata, setMetaData] = useState({});
@@ -15,10 +13,6 @@ export default function Products() {
 
 
     useEffect(() => {
-
-        if (!redux_user) {
-            router.push("/login")
-        }
 
         async function fetchProducts() {
             let url = `https://ecommerce-sagartmg2.vercel.app/api/products?`
@@ -63,4 +57,5 @@ export default function Products() {
 // }
 
 
+export default ProtctedPage(Products, "seller")
 

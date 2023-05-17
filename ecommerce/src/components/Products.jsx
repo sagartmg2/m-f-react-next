@@ -6,12 +6,13 @@ import axios from 'axios'
 import { BsFillGrid1X2Fill } from 'react-icons/bs'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '@/redux/slice/cartSlice'
 
 export default function Products({ products, metadata, categories, user }) {
   const router = useRouter()
   const dispatch = useDispatch()
+  const redux_user = useSelector((redux_store) => { return redux_store.user.value })
 
   return (
     <>
@@ -87,13 +88,20 @@ export default function Products({ products, metadata, categories, user }) {
                   <div>
                     <p className='text-2xl uppercase'>{product.name}</p>
                     <p>Rs.{product.price}</p>
-                    <button onClick={(e) => {
-                      e.preventDefault()
-                      dispatch(addToCart(product))
-                      console.log("add to cart");
 
-                    }}
-                      className='border bg-secondary text-white p-1 '>Add To Cart</button>
+                    {
+                      redux_user?.role != "seller"
+                      &&
+                      <button onClick={(e) => {
+                        e.preventDefault()
+                        dispatch(addToCart(product))
+                        console.log("add to cart");
+
+                      }}
+                        className='border bg-secondary text-white p-1 '>Add To Cart</button>
+                    }
+
+
                   </div>
                 </div>
               </Link>

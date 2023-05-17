@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { store } from '../redux/store'
 import { Provider, useDispatch } from 'react-redux'
 import axios from 'axios';
-import { setReduxUser } from '@/redux/slice/userSlice';
+import { setReduxUser, stopLoading } from '@/redux/slice/userSlice';
 import { setCartItems } from '@/redux/slice/cartSlice';
 import Header from '@/components/Header';
 
@@ -27,7 +27,9 @@ function App({ Component, pageProps }) {
 
       let cart_items = JSON.parse(localStorage.getItem("cart_items"));
       dispatch(setCartItems(cart_items))
-      
+    }
+    else {
+      dispatch(stopLoading())
     }
 
   }, [])

@@ -53,7 +53,7 @@ export default function Login({ user, setUser }) {
           localStorage.setItem("access_token", res.data.access_token)
           // setUser(res.data.user)
           setisSubmitting(false)
-          // router.push("/")
+          router.push("/")
         })
         .catch(err => {
           setisSubmitting(false)

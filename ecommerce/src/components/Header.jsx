@@ -30,6 +30,13 @@ export default function Header({ user, setUser }) {
             <li>
               <Link href={"/products"}>Products</Link>
             </li>
+            {
+              redux_user?.role == "seller"
+              &&
+              <li>
+                <Link href={"/seller/products"}>Seller Products</Link>
+              </li>
+            }
             {/* <BuyerComponeet>   */}
             {
               redux_user?.role == "buyer"
