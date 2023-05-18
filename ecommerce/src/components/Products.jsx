@@ -8,22 +8,50 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '@/redux/slice/cartSlice'
+import SellerComponent from './SellerComponent'
 
 export default function Products({ products, metadata, categories, user }) {
   const router = useRouter()
   const dispatch = useDispatch()
   const redux_user = useSelector((redux_store) => { return redux_store.user.value })
 
+  // let addPorductComponent = () => {
+  //   return <div className="container">
+  //     <Link href="/seller/products/create">Add Product</Link>
+  //   </div>
+  // }
+
+  // let addPorductComponent = <div className="container">
+  //   <Link href="/seller/products/create">Add Product</Link>
+  // </div>
+
+  // }
+
   return (
     <>
       <div className='py-24 bg-primary-tint'>
+
         <div className='container'>
           <p className='text-3xl text-header font-bold'>Shop Left Sidebar</p>
           <p>
             <Link href={"/"}>Home</Link> . <Link href={"/products"}>Products</Link></p>
         </div>
       </div>
+
+      <SellerComponent>
+        <div className="container">
+          <Link href="/seller/products/create">Add Product</Link>
+        </div>
+      </SellerComponent>
+
+
+      {/* {
+        redux_user?.role == "seller"
+        &&
+       
+      } */}
       <div className='container py-24 flex flex-col md:flex-row justify-between items-center text-center gap-4'>
+
         <div>
           <p className='font-bold text-xl text-header'>Ecommerce Acceories & Fashion item </p>
           <p>total - {metadata.total} </p>

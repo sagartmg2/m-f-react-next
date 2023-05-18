@@ -5,6 +5,7 @@ import { AiOutlineMail, AiOutlineSearch } from "react-icons/ai"
 import { BsFillTelephoneFill } from "react-icons/bs"
 import SocialNavBar from './SocialNavBar'
 import { useSelector } from 'react-redux'
+import SellerComponent from './SellerComponent'
 
 export default function Header({ user, setUser }) {
   const router = useRouter()
@@ -30,13 +31,19 @@ export default function Header({ user, setUser }) {
             <li>
               <Link href={"/products"}>Products</Link>
             </li>
-            {
-              redux_user?.role == "seller"
-              &&
+
+            {/* <ProtectedComponet role-"buyer">
+
+            </ProtectedComponet>
+            <ProtectedComponet role-"seller">
+
+            </ProtectedComponet> */}
+
+            <SellerComponent>
               <li>
                 <Link href={"/seller/products"}>Seller Products</Link>
               </li>
-            }
+            </SellerComponent>
             {/* <BuyerComponeet>   */}
             {
               redux_user?.role == "buyer"
