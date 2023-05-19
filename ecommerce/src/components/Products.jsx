@@ -130,6 +130,14 @@ export default function Products({ products, metadata, categories, user }) {
                     }
 
 
+                    <SellerComponent>
+                      <Link href={`/seller/products/edit/${product._id}`}>Edit </Link>
+                      <button>Delete</button>
+                    </SellerComponent>
+
+
+
+
                   </div>
                 </div>
               </Link>
