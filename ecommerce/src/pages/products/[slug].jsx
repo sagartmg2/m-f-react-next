@@ -4,10 +4,18 @@ import axios from 'axios'
 import Link from 'next/link'
 import Slider from 'react-slick'
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
+import { checkAuthentication } from '@/utilis/checkAuthentication'
+import useAuthenticate from '@/hooks/useAuthenticate'
 
 export default function SingleProduct({ product }) {
 
     const [disply_type, setDisplay] = useState("description")
+
+    const authenticate = useAuthenticate()
+
+    const redux_user = useSelector(store => store.user.value)
+
 
     function SampleNextArrow(props) {
         const { className, style, onClick } = props;
@@ -31,6 +39,45 @@ export default function SingleProduct({ product }) {
         );
     }
 
+    const [data, setData] = useState({
+        rating: 0,
+        comment: ""
+    });
+
+    function handleChange(e) {
+        console.log(e)
+        console.log(e.target.files)
+        console.log(e.target.value)
+
+
+        setData({ ...data, [e.target.name]: e.target.type == "file" ? [...data.images, ...e.target.files] : e.target.value })
+    }
+
+
+    function handleSubmit(e) {
+        e.preventDefault()
+
+        // if (!redux_user) {
+        //     alert("login required.")
+        //     return;
+        // }
+        // checkAuthentication();
+
+        function updateReview(){
+            let url = "https://ecommerce-sagartmg2.vercel.app/api/products/review/" + router.query.slug
+    
+            axios.put(url, data, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("access_token")
+                }
+            })
+        }
+
+        authenticate(updateReview)
+
+    }
+
+
     var settings = {
         dots: true,
         infinite: true,
@@ -43,6 +90,12 @@ export default function SingleProduct({ product }) {
 
     const router = useRouter()
     console.log(router)
+
+    function getRating(number)
+    {
+        let arr = new Array(number)
+        return arr.fill("⭐").join("")
+    }
 
     return (
         <>
@@ -80,7 +133,21 @@ export default function SingleProduct({ product }) {
                             return <span className='bg-primary text-white rounded mr-3 py-0.5 px-1'>{cat}</span>
                         })}
                     </p>
-                    <button className='border bg-secondary p-2 text-white'>Add To Cart</button>
+                    <button className='border bg-secondary p-2 text-white' onClick={() => {
+
+                        // if (!redux_user) {
+                        //     alert("login required.")
+                        // }
+
+
+                        function addtoCart(){
+                            console.log("add to cart");
+                        }
+
+                        authenticate(addtoCart)
+
+
+                    }}>Add To Cart</button>
 
                 </div>
 
@@ -104,18 +171,37 @@ export default function SingleProduct({ product }) {
                 {
                     disply_type == "reviews"
                     &&
-                    <div className=''>
-                        <p>
-                            John: Good
-                        </p>
-                        <p>
+                    <>
+                        <div className=''>
+                            {/* {JSON.stringify(product.reviews)} */}
+                            {
+                                product.reviews.map(review => {
+                                    return <div>
+                                        <p>user: {review.created_by.name}</p>
+                                        <p>rating:{getRating(review.rating)}</p>
+                                        <p>comment:{review.comment}</p>
 
-                            Ram: Good
-                        </p>
-                        <p>
-                            Shyam: Good
-                        </p>
-                    </div>
+                                    </div>
+                                })
+                            }
+                        </div>
+                        <form className='container' onSubmit={handleSubmit}  >
+
+                            <div class="mb-6">
+                                <label class=" form-label">Rating</label>
+                                <input type="text" name='rating' value={data.rating}
+                                    onChange={handleChange}
+                                    className="form-control" placeholder="" />
+                            </div>
+                            <div class="mb-6">
+                                <label class=" form-label">Comment</label>
+                                <textarea type="text" name='comment' value={data.comment}
+                                    onChange={handleChange}
+                                    className="form-control" placeholder="" />
+                            </div>
+                            <button type="submit" class="text-white disabled:bg-blue-100 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> Submit</button>
+                        </form>
+                    </>
                 }
 
             </div>

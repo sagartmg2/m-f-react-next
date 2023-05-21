@@ -61,9 +61,20 @@ export default function Products({ products, metadata, categories, user }) {
             <label htmlFor="">Per Page: </label>
             <select name="" id="" onChange={(e) => {
 
-              console.log(router)
+              console.log(router.query) // {search_term=charger,page=1}
+              let url = router.route + "?";
 
-              router.push(`${router.route}?per_page=${e.target.value}`)
+              router.query.per_page = e.target.value
+
+              let arr = Object.entries(router.query)
+
+              arr.forEach(el =>{
+                url += `${el[0]}=${el[1]}&`
+              })
+
+              router.push(url)
+
+              // router.push(`${router.route}?per_page=${e.target.value}`)
 
             }}>
               <option value="3">3</option>

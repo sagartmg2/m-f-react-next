@@ -59,7 +59,7 @@ export default function Header({ user, setUser }) {
             }
           </ul>
           <form className='flex mt-3' onSubmit={handleSearch}>
-            <input type="text" name='search_term' className='border w-full outline-none px-2' />
+            <input type="text" name='search_term' className='border w-full outline-none px-2' value={router.query.search_term} />
             <button className='bg-secondary text-white p-2 inline'>
               <AiOutlineSearch className=' inline' />
             </button>
